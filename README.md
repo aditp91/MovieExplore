@@ -22,11 +22,11 @@ npm run build
 ```
 screen
 
-ssh -L 3306:127.0.0.1:3306 studentweb.comminfo.rutgers.edu -ladithyap
+ssh -L 3306:127.0.0.1:3306 studentweb.comminfo.rutgers.edu -l<user-name>
 ```
 
 
-### Install the app
+### Run the app
 
 `dev`
 ```
