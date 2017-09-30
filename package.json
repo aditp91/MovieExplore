@@ -6,6 +6,7 @@
     "classnames": "^2.2.5",
     "express": "^4.16.0",
     "morgan": "^1.9.0",
+    "mysql": "^2.14.1",
     "prop-types": "^15.6.0",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
@@ -13,8 +14,8 @@
     "react-scripts": "^1.0.14"
   },
   "scripts": {
-    "start": "react-scripts start",
     "start:server": "nodemon server",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
