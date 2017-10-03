@@ -1,0 +1,16 @@
+{
+  "db" : {
+    "development": {
+      "host": "localhost",
+      "user": "root",
+      "pwd": "",
+      "dbname": "movie_explore"
+    },
+    "production": {
+      "host": "studentweb.comminfo.rutgers.edu",
+      "user": "adithyap",
+      "pwd": "4.g?3U6oTH.i",
+      "dbname": "class-2017-9-17-610-557-01_adithyap"
+    }
+  }
+}

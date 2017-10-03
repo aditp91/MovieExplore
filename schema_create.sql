@@ -7,13 +7,13 @@ CREATE TABLE viewers (
 	firstName VARCHAR(255) NOT NULL,
 	lastName  VARCHAR(255) NOT NULL,
   role  VARCHAR(255) NOT NULL,
-  profileImage  VARCHAR(255),
-) CHARACTER SET utf8;
+  profileImage  VARCHAR(255)
+)	CHARACTER SET utf8;
 
-SHOW TABLES;
+SHOW tables;
 
-INSERT INTO viewers (firstName, lastName) VALUES("Adi","Pothuri", "admin");
-INSERT INTO viewers (firstName, lastName) VALUES("William","Shakespeare", "user");
-INSERT INTO viewers (firstName, lastName) VALUES("John","Doe", "user");
+INSERT INTO viewers (firstName, lastName, role) VALUES("Adi","Pothuri", "admin");
+INSERT INTO viewers (firstName, lastName, role) VALUES("William","Shakespeare", "user");
+INSERT INTO viewers (firstName, lastName, role) VALUES("John","Doe", "user");
 
 SELECT * FROM viewers;

@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const mysql = require('mysql');
+const config = require('./config.json')
 
 const app = express();
 const router = express.Router();
@@ -17,49 +18,47 @@ app.get('/', (req, res) => {
 
 
 // config db ====================================
-const host = "studentweb.comminfo.rutgers.edu";
-const user = "adithyap";
-const pwd = "4.g?3U6oTH.i";
-const dbname = "class-2017-9-17-610-557-01_adithyap";
+let key = 'development';
+const db = config.db;
 const pool = mysql.createConnection({
-  host: '127.0.0.1',
-  user: user,
-  password: pwd,
-  port: '3306',
-  database: dbname
+  host: db[key].host,
+  user: db[key].user,
+  password: db[key].password,
+  port: db[key].port,
+  database: db[key].database
 });
 pool.connect(function(err) {
-  if (err) {
+  if (err)
     console.error('error connecting: ' + err.stack);
-    return;
-  }
-  console.log('connected as id ' + connection.threadId);
+  else
+    console.log('connected as id ' + pool.threadId);
+});
+pool.query('USE movie_explore');
+
+
+// API route middleware that will happen on every request
+router.use((req, res, next) => {
+  // log each request to the console
+  console.log(req.method, req.url);
+  // continue doing what we were doing and go to the route
+  next();
 });
 
-// route middleware that will happen on every request
-router.use((req, res, next) => {
-      // log each request to the console
-      console.log(req.method, req.url);
-      // continue doing what we were doing and go to the route
-      next();
-  });
-
-router.get('/helloworld', (req, res) => {
+router.get('/getViewers', (req, res) => {
   // build the query and send mysql request
-  const queryString = 'SELECT * FROM accounts'
-
+  const queryString = 'SELECT * FROM viewers'
   pool.query(queryString, function(err, rows, fields) {
-    if (!err)
-      console.log('The solution is: ', rows);
-    else
+    if (!err) {
+      res.json(rows);
+    }
+    else {
       console.log('Error while performing Query:', err);
- });
-
-  res.json("successful response!");
+      res.json(err);
+    }
+  });
 
   pool.end();
 });
-
 
 app.use('/api', router);
 
