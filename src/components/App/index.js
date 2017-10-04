@@ -1,9 +1,9 @@
 import React, {Component } from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-import logo from './logo.svg';
-import './style.css';
+import Home from '../Home';
+import About from '../About';
+import {Nav} from './Nav';
 
 export default class App extends Component {
   // static propTypes = {}
@@ -11,17 +11,19 @@ export default class App extends Component {
   // state = {}
 
   render() {
-    const { className, ...props } = this.props;
     return (
-      <div className={classnames('App', className)} {...props}>
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <BrowserRouter>
+        <div className="container">
+            <Nav/>
+            <Switch>
+                <Route exact path="/" component={Home}/>
+                <Route path="/about" component={About}/>
+                <Route render={ function() {
+                    return <h1> Not found! better luck next time </h1>
+                }} />
+            </Switch>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      </BrowserRouter>
     );
   }
 };

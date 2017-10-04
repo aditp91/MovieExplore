@@ -1,7 +1,16 @@
 {
-  "name": "express-react",
+  "name": "movie-explore",
   "version": "0.1.0",
+  "author": "Adi Pothuri",
   "private": true,
+  "scripts": {
+    "server": "nodemon server",
+    "production": "npm run build && nodemon server",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "classnames": "^2.2.5",
     "express": "^4.16.0",
@@ -11,14 +20,8 @@
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-router": "^2.8.1",
+    "react-router-dom": "^4.2.2",
     "react-scripts": "^1.0.14"
-  },
-  "scripts": {
-    "start:server": "nodemon server",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
   },
   "devDependencies": {
     "nodemon": "^1.12.1"
