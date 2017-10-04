@@ -1,4 +1,5 @@
 import React, {Component } from 'react';
+import axios from 'axios';
 
 import logo from './logo.svg';
 import './style.css';
@@ -13,10 +14,15 @@ export default class Home extends Component {
 
   componentDidMount () {
       this.setState({
-        text: "changed text"
+        data: "changed text"
       });
 
       // http call for getViewers
+      axios.get('/api/getViewers')
+        .then(res => {
+          const data = res.data.data.map(obj => obj.data);
+          this.setState({ data });
+        });
   }
 
   render() {
