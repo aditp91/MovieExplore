@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const path = require('path');
 const mysql = require('mysql');
 const config = require('./config.json')
+const webpack = require('webpack');
 
 const app = express();
 const router = express.Router();
@@ -15,6 +16,13 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
+
+var compiler = webpack(webpackConfig);
+
+var devMiddleware = require('webpack-dev-middleware')(compiler, {
+ publicPath: webpackConfig.output.publicPath,
+ quiet: true
+})
 
 
 // config db ====================================
@@ -61,5 +69,6 @@ router.get('/getViewers', (req, res) => {
 });
 
 app.use('/api', router);
+
 
 module.exports = app;
