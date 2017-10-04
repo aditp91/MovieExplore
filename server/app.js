@@ -4,6 +4,7 @@ const path = require('path');
 const mysql = require('mysql');
 const config = require('./config.json')
 const webpack = require('webpack');
+const webpackConfig = require('../config/webpack.config.dev.js');
 
 const app = express();
 const router = express.Router();
