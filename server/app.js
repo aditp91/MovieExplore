@@ -38,13 +38,13 @@ pool.query('USE movie_explore');
 
 // API route middleware that will happen on every request
 router.use((req, res, next) => {
-  // log each request to the console
+  // log each request to the console & continue doing what we were doing
   console.log(req.method, req.url);
-  // continue doing what we were doing and go to the route
   next();
 });
 
 router.get('/getViewers', (req, res) => {
+  console.log('Got the request');
   // build the query and send mysql request
   const queryString = 'SELECT * FROM viewers'
   pool.query(queryString, function(err, rows, fields) {

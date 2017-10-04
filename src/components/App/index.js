@@ -1,15 +1,12 @@
 import React, {Component } from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
+import {Nav} from './Nav';
 import Home from '../Home';
 import About from '../About';
-import {Nav} from './Nav';
+import NotFound from '../NotFound';
 
 export default class App extends Component {
-  // static propTypes = {}
-  // static defaultProps = {}
-  // state = {}
-
   render() {
     return (
       <BrowserRouter>
@@ -18,9 +15,7 @@ export default class App extends Component {
             <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route path="/about" component={About}/>
-                <Route render={ function() {
-                    return <h1> Not found! better luck next time </h1>
-                }} />
+                <Route component={NotFound} />
             </Switch>
         </div>
       </BrowserRouter>
