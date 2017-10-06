@@ -2,10 +2,16 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const mysql = require('mysql');
-const config = require('./config.json')
+const config = require('./config.json');
 
 const app = express();
 const router = express.Router();
+const allowCrossDomain = function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  // res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+}
 
 // Setup logger
 app.use(morgan(':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] :response-time ms'));
@@ -15,7 +21,8 @@ app.use(express.static(path.resolve(__dirname, '..', 'build')));
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
-
+// Apply crossdomain resource handling for all requests
+app.use(allowCrossDomain);
 
 // config db ====================================
 let key = 'development';
@@ -44,7 +51,6 @@ router.use((req, res, next) => {
 });
 
 router.get('/getViewers', (req, res) => {
-  console.log('Got the request');
   // build the query and send mysql request
   const queryString = 'SELECT * FROM viewers'
   pool.query(queryString, function(err, rows, fields) {
@@ -56,8 +62,7 @@ router.get('/getViewers', (req, res) => {
       res.json(err);
     }
   });
-
-  pool.end();
+  // pool.end();
 });
 
 app.use('/api', router);

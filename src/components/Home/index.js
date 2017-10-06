@@ -2,25 +2,22 @@ import React, {Component } from 'react';
 import axios from 'axios';
 
 import logo from './logo.svg';
+import apiConstants from '../../shared/api.constants.js';
 import './style.css';
 
 export default class Home extends Component {
   constructor (props) {
     super();
     this.state = {
-        text: "this is the current state {text}"
+        data: "this is the current state"
     };
   };
 
   componentDidMount () {
-      this.setState({
-        data: "changed text"
-      });
-
       // http call for getViewers
-      axios.get('/api/getViewers')
+      axios.get(apiConstants.HOST + '/api/getViewers')
         .then(res => {
-          const data = res.data.data.map(obj => obj.data);
+          const data = JSON.stringify(res.data);
           this.setState({ data });
         });
   }
@@ -33,7 +30,7 @@ export default class Home extends Component {
           <h2>Welcome to React</h2>
         </div>
         <p className="App-intro">
-          State: {this.state.text}.
+          State: {this.state.data}.
         </p>
       </div>
     );
