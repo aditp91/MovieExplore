@@ -10,8 +10,8 @@ export function Nav () {
                 </NavLink>
             </li>
             <li>
-                <NavLink activeClassName="active" to="/about">
-                    About
+                <NavLink activeClassName="active" to="/my-reviews">
+                    MyReviews
                 </NavLink>
             </li>
             <li>

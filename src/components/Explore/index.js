@@ -5,7 +5,7 @@ import logo from './logo.svg';
 import apiConstants from '../../shared/api.constants.js';
 import './style.css';
 
-export default class Home extends Component {
+export default class Explore extends Component {
   constructor (props) {
     super();
     this.state = {
@@ -24,12 +24,12 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div className='App'>
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className='explore'>
+        <div className="explore-header">
+          <img src={logo} className="explore-logo" alt="logo" />
+          <h2>Explorer</h2>
         </div>
-        <p className="App-intro">
+        <p className="explore-intro">
           State: {this.state.data}.
         </p>
       </div>
