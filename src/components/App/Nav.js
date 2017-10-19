@@ -6,7 +6,7 @@ export function Nav () {
         <ul className="nav">
             <li>
                 <NavLink exact activeClassName="active" to="/">
-                    Home
+                    Explore
                 </NavLink>
             </li>
             <li>

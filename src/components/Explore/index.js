@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import logo from './logo.svg';
 import apiConstants from '../../shared/api.constants.js';
+import Movies from './Movies';
 import './style.css';
 
 export default class Explore extends Component {
@@ -14,12 +15,12 @@ export default class Explore extends Component {
   };
 
   componentDidMount () {
-      // http call for getViewers
-      axios.get(apiConstants.HOST + '/api/getViewers')
-        .then(res => {
-          const data = JSON.stringify(res.data);
-          this.setState({ data });
-        });
+    // http call for getViewers
+    axios.get(apiConstants.HOST + '/api/getViewers')
+      .then(res => {
+        const data = res.data;
+        this.setState({ data });
+      });
   }
 
   render() {
@@ -29,9 +30,7 @@ export default class Explore extends Component {
           <img src={logo} className="explore-logo" alt="logo" />
           <h2>Explorer</h2>
         </div>
-        <p className="explore-intro">
-          State: {this.state.data}.
-        </p>
+        <Movies data={this.state.data}/>
       </div>
     );
   }

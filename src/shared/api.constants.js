@@ -4,6 +4,7 @@
 let LOCALHOST = 'http://localhost:9000',
   PRODUCTION = '';
 
+// Switch based on application environment)
 const apiConstants = {
   HOST: LOCALHOST
 }
