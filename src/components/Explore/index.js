@@ -12,6 +12,8 @@ export default class Explore extends Component {
     this.state = {
         data: "this is the current state"
     };
+
+    this.thumbnailSelectHandler.bind(this);
   };
 
   componentDidMount () {
@@ -23,6 +25,10 @@ export default class Explore extends Component {
       });
   }
 
+  thumbnailSelectHandler(index) {
+    console.log(this.props.item);
+  }
+
   render() {
     return (
       <div className='explore'>
@@ -30,7 +36,7 @@ export default class Explore extends Component {
           <img src={logo} className="explore-logo" alt="logo" />
           <h2>Explorer</h2>
         </div>
-        <Movies data={this.state.data}/>
+        <Movies data={this.state.data} onClickThumbnail={this.thumbnailSelectHandler}/>
       </div>
     );
   }

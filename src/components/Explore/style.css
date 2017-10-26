@@ -18,8 +18,10 @@
   font-size: 1.5em;
 }
 
-.explore-intro {
-  font-size: large;
+.movies-wall {
+  width: 800px;
+  height: 500px;
+  overflow: scroll;
 }
 
 @keyframes App-logo-spin {
