@@ -1,19 +1,41 @@
-CREATE DATABASE movie_explore;
+### MOVIE EXPLORE DB SCRIPT ###
 
-USE movie_explore;
+## Create databases and tables
+
+CREATE DATABASE movie_explore;
 
 CREATE TABLE viewers (
 	id   INTEGER PRIMARY KEY AUTO_INCREMENT,
+	username varchar(45) NOT NULL,
+	password varchar(45) NOT NULL,
 	firstName VARCHAR(255) NOT NULL,
 	lastName  VARCHAR(255) NOT NULL,
-  role  VARCHAR(255) NOT NULL,
-  profileImage  VARCHAR(255)
-)	CHARACTER SET utf8;
+	role  VARCHAR(255) NOT NULL
+) CHARACTER SET utf8;
 
-SHOW tables;
 
-INSERT INTO viewers (firstName, lastName, role) VALUES("Adi","Pothuri", "admin");
-INSERT INTO viewers (firstName, lastName, role) VALUES("William","Shakespeare", "user");
-INSERT INTO viewers (firstName, lastName, role) VALUES("John","Doe", "user");
+CREATE TABLE reviews (
+	id   INTEGER PRIMARY KEY AUTO_INCREMENT,
+	description VARCHAR(255) NOT NULL,
+	score INTEGER NOT NULL,
+  sentiment VARCHAR(255) NOT NULL
+) CHARACTER SET utf8;
 
-SELECT * FROM viewers;
+
+CREATE TABLE productions (
+	id   INTEGER PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+  website VARCHAR(255)
+) CHARACTER SET utf8;
+
+
+CREATE TABLE movies (
+	id INTEGER PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	description VARCHAR(255) NOT NULL,
+	year INTEGER NOT NULL,
+	length INTEGER NOT NULL,
+  productionID INTEGER NULL,
+  thumbnail varchar(255) NULL,
+	FOREIGN KEY (productionID) REFERENCES Productions(id)
+) CHARACTER SET utf8;
