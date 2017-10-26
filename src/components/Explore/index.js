@@ -25,8 +25,8 @@ export default class Explore extends Component {
       });
   }
 
-  thumbnailSelectHandler(index) {
-    console.log(this.props.item);
+  thumbnailSelectHandler(movieId) {
+    console.log(movieId);
   }
 
   render() {
@@ -36,7 +36,7 @@ export default class Explore extends Component {
           <img src={logo} className="explore-logo" alt="logo" />
           <h2>Explorer</h2>
         </div>
-        <Movies data={this.state.data} onClickThumbnail={this.thumbnailSelectHandler}/>
+        <Movies data={this.state.data} thumbnailSelectHandler={this.thumbnailSelectHandler}/>
       </div>
     );
   }
