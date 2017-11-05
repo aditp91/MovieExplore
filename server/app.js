@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const path = require('path');
 const mysql = require('mysql');
 const config = require('./config.json');
+const actions = require('./actions');
 
 const app = express();
 const router = express.Router();
@@ -51,19 +52,10 @@ router.use((req, res, next) => {
 });
 
 router.get('/getViewers', (req, res) => {
-  // build the query and send mysql request
-  const queryString = 'SELECT * FROM viewers'
-  pool.query(queryString, function(err, rows, fields) {
-    if (!err) {
-      res.json(rows);
-    }
-    else {
-      console.log('Error while performing Query:', err);
-      res.json(err);
-    }
-  });
-  // pool.end();
+  actions.getViewers(pool,res);
 });
+
+actions.importData(pool);
 
 app.use('/api', router);
 
