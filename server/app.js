@@ -55,7 +55,18 @@ router.get('/getViewers', (req, res) => {
   actions.getViewers(pool,res);
 });
 
-actions.importData(pool);
+router.get('/getMovies', (req, res) => {
+  actions.getMovies(pool,res);
+});
+
+router.get('/getReviewsByMovie/:id', (req, res) => {
+  actions.getReviewsByMovie(pool,res,req.params.id);
+});
+
+router.get('/importLatest', (req, res) => {
+  actions.importData(pool);
+  res.json("sent request for import");
+});
 
 app.use('/api', router);
 

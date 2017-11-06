@@ -30,12 +30,12 @@ ssh -L 3306:127.0.0.1:3306 studentweb.comminfo.rutgers.edu -l<user-name>
 
 `dev`
 ```
-npm start // uses react-scripts
+npm run server
 ```
 `production`
 ```
-npm run start:server
+npm run production
 ```
 
 
-
+#### Open your browser to localhost:9000

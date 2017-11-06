@@ -2,6 +2,55 @@ var http = require("https");
 
 const actions = {};
 
+const getMovies = function (pool, res) {
+  // build the query and send mysql request
+  const queryString = 'SELECT * FROM movies';
+  pool.query(queryString, function(err, rows, fields) {
+    if (!err) {
+      res.json(rows);
+    }
+    else {
+      console.log('Error while performing Query:', err);
+      res.json(err);
+    }
+  });
+}
+
+const getUsers = function (pool, res) {
+  // build the query and send mysql request
+  const queryString = 'SELECT * FROM users';
+  pool.query(queryString, function(err, rows, fields) {
+    if (!err) {
+      res.json(rows);
+    }
+    else {
+      console.log('Error while performing Query:', err);
+      res.json(err);
+    }
+  });
+}
+
+const getReviewsByMovie = function (pool, res, movieId) {
+  // build the query and send mysql request
+  const queryString = 'SELECT r.*, u.Username ' + 
+                        'FROM reviews r INNER JOIN user_review_entries ure ON r.ID=ure.ReviewID ' +
+                        'INNER JOIN users u ON u.ID = ure.UserID WHERE ure.MovieID=' + movieId;
+  pool.query(queryString, function(err, rows, fields) {
+    if (!err) {
+      res.json(rows);
+    }
+    else {
+      console.log('Error while performing Query:', err);
+      res.json(err);
+    }
+  });
+}
+
+
+
+
+
+// Database population
 const importData = function (pool) {
   const apiKey = '?api_key=724402db4d243c4c28e6865752596f4d';
   const imageApi = 'https://image.tmdb.org/t/p/w500';
@@ -39,7 +88,7 @@ const importData = function (pool) {
 
             // console.log(JSON.stringify(movie.production.name, null, 2));
             if (movie.production) {
-              insertMovies(pool, movie);
+              importMovies(pool, movie);
             }
           });
         });
@@ -55,7 +104,7 @@ const importData = function (pool) {
   req.end();
 }
 
-const insertMovies = function (pool, movie) {
+const importMovies = function (pool, movie) {
   // insert production company first
   const production_website = 'www.' + movie.production.name + '.com';
   const prodString = 'INSERT INTO Productions (ID, Name, Website) VALUES ?'
@@ -78,21 +127,9 @@ const insertMovies = function (pool, movie) {
   });
 }
 
-const getViewers = function (pool, res) {
-  // build the query and send mysql request
-  const queryString = 'SELECT * FROM users';
-  pool.query(queryString, function(err, rows, fields) {
-    if (!err) {
-      res.json(rows);
-    }
-    else {
-      console.log('Error while performing Query:', err);
-      res.json(err);
-    }
-  });
-}
-
+actions.getMovies = getMovies;
+actions.getUsers = getUsers;
+actions.getReviewsByMovie = getReviewsByMovie;
 actions.importData = importData;
-actions.getViewers = getViewers;
 
 module.exports = actions;
