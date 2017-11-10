@@ -70,7 +70,7 @@ export default class Details extends Component {
     return (
       <div className="details-panel area">
         <div className="analysis">
-          <h4>avgScore: {avgScore}, avgSentiment: {avgSentiment}</h4>
+          <h4>Movie Score: {avgScore}, Movie Sentiment: {avgSentiment}</h4>
         </div>
         <div className="reviews">
           { 
