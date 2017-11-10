@@ -40,7 +40,7 @@ export default class Movies extends Component {
     const {wallObjects} = this.state;
 
     return (
-      <div className="movies-wall">
+      <div className="movies-wall area">
         {/* <div>
           { 
             movies.map((movie) => {
