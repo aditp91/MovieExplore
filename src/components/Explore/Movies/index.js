@@ -40,7 +40,7 @@ export default class Movies extends Component {
     const {wallObjects} = this.state;
 
     return (
-      <div>
+      <div className="movies-wall">
         {/* <div>
           { 
             movies.map((movie) => {
@@ -48,10 +48,10 @@ export default class Movies extends Component {
             })
           }
         </div> */}
-        <div className="movies-wall">
+        <div>
           <Gallery images={wallObjects}
             onClickThumbnail={this.onClickThumbnail.bind(this)}
-            margin={10} rowHeight={320}
+            margin={20} rowHeight={310}
             enableLightbox={false}
             enableImageSelection={true} />
         </div>

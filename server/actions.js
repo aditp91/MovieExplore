@@ -2,9 +2,8 @@ var http = require("https");
 
 const actions = {};
 
-const getMovies = function (pool, res) {
-  // build the query and send mysql request
-  const queryString = 'SELECT * FROM movies';
+// Database queries
+const resolveQuery = function (pool, res, queryString) {
   pool.query(queryString, function(err, rows, fields) {
     if (!err) {
       res.json(rows);
@@ -14,43 +13,53 @@ const getMovies = function (pool, res) {
       res.json(err);
     }
   });
+}
+
+const getMovies = function (pool, res) {
+  const queryString = 'SELECT * FROM movies';
+  resolveQuery(pool, res, queryString);
 }
 
 const getUsers = function (pool, res) {
-  // build the query and send mysql request
   const queryString = 'SELECT * FROM users';
-  pool.query(queryString, function(err, rows, fields) {
-    if (!err) {
-      res.json(rows);
-    }
-    else {
-      console.log('Error while performing Query:', err);
-      res.json(err);
-    }
-  });
+  resolveQuery(pool, res, queryString);
 }
 
 const getReviewsByMovie = function (pool, res, movieId) {
-  // build the query and send mysql request
   const queryString = 'SELECT r.*, u.Username ' + 
                         'FROM reviews r INNER JOIN user_review_entries ure ON r.ID=ure.ReviewID ' +
                         'INNER JOIN users u ON u.ID = ure.UserID WHERE ure.MovieID=' + movieId;
-  pool.query(queryString, function(err, rows, fields) {
-    if (!err) {
-      res.json(rows);
-    }
-    else {
-      console.log('Error while performing Query:', err);
-      res.json(err);
-    }
-  });
+  resolveQuery(pool, res, queryString);
 }
-
-
 
 
 
 // Database population
+const insertMovie = function (pool, movie) {
+  // insert production company first
+  const production_website = 'www.' + movie.production.name + '.com';
+  const prodString = 'INSERT INTO Productions (ID, Name, Website) VALUES ?'
+  const prodValues = [[movie.production.id, movie.production.name, production_website]];
+  pool.query(prodString, [prodValues], function(err, result) {
+    if (err) {
+      console.log('Error while performing Insert:', err);
+    }
+  });
+
+  // insert the movie
+  const movieString = 'INSERT INTO Movies (ID, Title, Description, ReleaseDate, Length, ImageUrl, ProductionID) VALUES ?'
+  const movieValues = [[movie.id, movie.title, movie.overview, movie.release_date, movie.length, movie.imageUrl, movie.production.id]];
+  pool.query(movieString, [movieValues], function(err, result) {
+    if (!err) {
+      console.log(JSON.stringify(result, null, 2));
+    } else {
+      console.log('Error while performing Insert:', err);
+    }
+  });
+}
+
+
+// Import More Data using themoviedb api
 const importData = function (pool) {
   const apiKey = '?api_key=724402db4d243c4c28e6865752596f4d';
   const imageApi = 'https://image.tmdb.org/t/p/w500';
@@ -88,7 +97,7 @@ const importData = function (pool) {
 
             // console.log(JSON.stringify(movie.production.name, null, 2));
             if (movie.production) {
-              importMovies(pool, movie);
+              insertMovie(pool, movie);
             }
           });
         });
@@ -102,29 +111,6 @@ const importData = function (pool) {
   
   req.write("{}");
   req.end();
-}
-
-const importMovies = function (pool, movie) {
-  // insert production company first
-  const production_website = 'www.' + movie.production.name + '.com';
-  const prodString = 'INSERT INTO Productions (ID, Name, Website) VALUES ?'
-  const prodValues = [[movie.production.id, movie.production.name, production_website]];
-  pool.query(prodString, [prodValues], function(err, result) {
-    if (err) {
-      console.log('Error while performing Insert:', err);
-    }
-  });
-
-  // insert the movie
-  const movieString = 'INSERT INTO Movies (ID, Title, Description, ReleaseDate, Length, ImageUrl, ProductionID) VALUES ?'
-  const movieValues = [[movie.id, movie.title, movie.overview, movie.release_date, movie.length, movie.imageUrl, movie.production.id]];
-  pool.query(movieString, [movieValues], function(err, result) {
-    if (!err) {
-      console.log(JSON.stringify(result, null, 2));
-    } else {
-      console.log('Error while performing Insert:', err);
-    }
-  });
 }
 
 actions.getMovies = getMovies;
