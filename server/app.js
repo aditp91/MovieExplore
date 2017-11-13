@@ -47,8 +47,12 @@ pool.query('USE movie_explore');
 // API route middleware that will happen on every request
 router.use((req, res, next) => {
   // log each request to the console & continue doing what we were doing
-  console.log(req.method, req.url);
+  // console.log(req.method, req.url);
   next();
+});
+
+router.get('/authenticate/:username/:password', (req, res) => {
+  actions.authenticate(pool,res,req.params.username, req.params.password);
 });
 
 router.get('/getViewers', (req, res) => {

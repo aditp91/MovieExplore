@@ -1,7 +1,6 @@
 import React, {Component } from 'react';
 import axios from 'axios';
 
-// import logo from './logo.svg';
 import apiConstants from '../../shared/api.constants.js';
 import Movies from './Movies';
 import Details from './Details';

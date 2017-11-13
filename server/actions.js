@@ -15,6 +15,11 @@ const resolveQuery = function (pool, res, queryString) {
   });
 }
 
+const authenticate = function (pool, res, username, password) {
+  const queryString = 'SELECT * FROM users u WHERE u.Username="'+username+'" AND u.Password="'+password+'"';
+  resolveQuery(pool, res, queryString);
+}
+
 const getMovies = function (pool, res) {
   const queryString = 'SELECT * FROM movies';
   resolveQuery(pool, res, queryString);
@@ -113,6 +118,7 @@ const importData = function (pool) {
   req.end();
 }
 
+actions.authenticate = authenticate;
 actions.getMovies = getMovies;
 actions.getUsers = getUsers;
 actions.getReviewsByMovie = getReviewsByMovie;
