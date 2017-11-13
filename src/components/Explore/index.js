@@ -12,7 +12,6 @@ export default class Explore extends Component {
     super();
     this.state = {
         movies: [],
-        users: [],
         reviews: []
     };
 
