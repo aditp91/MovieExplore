@@ -16,7 +16,7 @@ const Card = ({info}) => {
   );
 }
 
-const NewEntry = () => {
+const NewEntry = ({role}) => {
   return (
     <form>
       <div className="form-row">
@@ -40,7 +40,7 @@ const NewEntry = () => {
           }
           </select>
         </div>
-        <button type="submit" className="btn btn-primary">Submit Review</button>
+        <button type="submit" className="btn btn-primary" disabled={role !== 'user'}>Submit Review</button>
       </div>
     </form>
   );
@@ -106,7 +106,7 @@ export default class Details extends Component {
           }
         </div>
         <div className="new-entry">
-          <NewEntry />
+          <NewEntry role={this.props.role}/>
         </div>
       </div>
     );

@@ -53,7 +53,12 @@ export default class Movies extends Component {
             enableImageSelection={true} />
         </div>
         <div>
-          <button type="submit" className="btn btn-primary movies-wall-button" onClick={this.onClickLoad.bind(this)}>Load Latest Movies</button>
+          <button type="submit" 
+            className="btn btn-primary movies-wall-button" 
+            onClick={this.onClickLoad.bind(this)}
+            disabled={this.props.role !== 'admin'}>
+              Load Latest Movies
+          </button>
         </div>
       </div>
     );

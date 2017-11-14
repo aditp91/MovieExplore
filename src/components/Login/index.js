@@ -33,7 +33,7 @@ export default class Login extends Component {
       if (user) {
         console.log(user);
         this.setState({ username, password, role: user.Role });
-        this.props.changeCurrentUser(user.ID, user.Username);
+        this.props.changeCurrentUser(user.ID, user.Username, user.Role);
         this.props.history.push('/');
       } else {
         alert("Try Again");

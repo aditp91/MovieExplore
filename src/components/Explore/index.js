@@ -19,7 +19,7 @@ export default class Explore extends Component {
 
   componentDidMount () {
     // check if app component has an authorized user
-    if (this.props.userId === 'unauthorized') {
+    if (this.props.role === 'unauthorized') {
       this.props.history.push('/login');
     } else { this.updateMovies(); }
   }
@@ -57,8 +57,9 @@ export default class Explore extends Component {
         </div> */}
         <Movies data={this.state.movies}
           thumbnailSelectHandler={this.thumbnailSelectHandler.bind(this)}
-          loadHandler={this.loadHandler.bind(this)} />
-        <Details data={this.state.reviews}/>
+          loadHandler={this.loadHandler.bind(this)} 
+          role={this.props.role} />
+        <Details data={this.state.reviews} role={this.props.role}/>
       </div>
     );
   }
