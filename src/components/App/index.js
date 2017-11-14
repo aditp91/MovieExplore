@@ -12,26 +12,28 @@ export default class App extends Component {
   constructor (props) {
     super();
     this.state = {
-        currentUserId: "default",
+        currentUserId: "unauthorized",
+        currentUsername: ""
     };
 
     this.changeCurrentUser.bind(this);
   };
 
-  changeCurrentUser(userId) {
-    console.log(userId);
-    this.setState({ currentUserId: userId });
+  changeCurrentUser(currentUserId, currentUsername) {
+    this.setState({ currentUserId, currentUsername });
+
+    console.log(this.state.currentUsername);
   }
 
   render(props) {
-    const { currentUserId } = this.state;
+    const { currentUserId, currentUsername } = this.state;
 
     return (
       <BrowserRouter>
         <div className="container">
-            <Nav/>
+            <Nav userId={currentUserId} username={currentUsername}/>
             <Switch>
-                <Route exact path="/" component={Explore} userId={currentUserId} />
+                <Route exact path="/" component={(props)=><Explore userId={currentUserId} {...props} />} />
                 <Route path="/my-reviews" component={MyReviews} userId={currentUserId}/>
                 <Route path="/login" component={(props)=><Login changeCurrentUser={this.changeCurrentUser.bind(this)} {...props} />} />
                 <Route component={NotFound} />

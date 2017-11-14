@@ -1,7 +1,11 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 
-export function Nav () {
+export function Nav (props) {
+    let authorized = props.userId === 'unauthorized' ? false : true;
+
+    console.log(props);
+
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -22,8 +26,11 @@ export function Nav () {
                     </ul>
                 </div>
                 
+                <div className="alert alert-primary welcome" role="alert" style={authorized ? {} : { display: 'none' }}>
+                    Welcome {props.username} !
+                </div>
                 <NavLink activeClassName="active" to="/login">
-                    <button className="btn btn-primary">Login</button>
+                    <button className="btn btn-primary" style={!authorized ? {} : { display: 'none' }}>Login</button>
                 </NavLink>
             </nav>
         </div>

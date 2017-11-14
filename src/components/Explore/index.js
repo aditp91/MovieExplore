@@ -18,12 +18,16 @@ export default class Explore extends Component {
   };
 
   componentDidMount () {
-    // RESTful calls to the api services
-    axios.get(apiConstants.HOST + '/api/getMovies')
-      .then(res => {
-        const movies = res.data;
-        this.setState({ movies });
-      });
+    // check if app component has an authorized user
+    if (this.props.userId === 'unauthorized') {
+      this.props.history.push('/login');
+    } else {
+      axios.get(apiConstants.HOST + '/api/getMovies')
+        .then(res => {
+          const movies = res.data;
+          this.setState({ movies });
+        });
+    }
   }
 
   thumbnailSelectHandler(movieId) {

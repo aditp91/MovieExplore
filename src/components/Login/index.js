@@ -1,5 +1,4 @@
 import React, {Component } from 'react';
-import { browserHistory } from 'react-router';
 import axios from 'axios';
 
 import apiConstants from '../../shared/api.constants.js';
@@ -34,13 +33,17 @@ export default class Login extends Component {
       if (user) {
         console.log(user);
         this.setState({ username, password, role: user.Role });
-        this.props.changeCurrentUser(user.ID);
+        this.props.changeCurrentUser(user.ID, user.Username);
         this.props.history.push('/');
+      } else {
+        alert("Try Again");
       }
     });
   }
 
   render() {
+    const {username, password} = this.state;
+
     return (
       <div className="login">
         <form onSubmit={this.validateSubmit.bind(this)}>
@@ -50,7 +53,7 @@ export default class Login extends Component {
           <div className="form-group">
             <input type="password" className="form-control" name="password" placeholder="Password" onChange={(e) => this.handleUserInput(e)}/>
           </div>
-          <button type="submit" className="btn btn-primary">Sign In</button>
+          <button type="submit" className="btn btn-primary" disabled={!username || !password}>Sign In</button>
         </form>
       </div>
     );
