@@ -1,12 +1,8 @@
 import React, {Component } from 'react';
 
-const Block = ({info}) => {
+const Card = ({info}) => {
   return (
     <div>
-      {/* <section className="block-of-text">
-        <h4>Review</h4>
-        <p> {JSON.stringify(info)} </p>
-      </section> */}
       <div className="card card-mx">
         <div className="card-body">
           <h4 className="card-title"> {info.Username} </h4>
@@ -17,6 +13,36 @@ const Block = ({info}) => {
         </div>
       </div>
     </div>
+  );
+}
+
+const NewEntry = () => {
+  return (
+    <form>
+      <div className="form-row">
+        <div className="form-group col-md-6">
+          <label htmlFor="inputContent">Content</label>
+          <input type="text" className="form-control" id="inputContent"/>
+        </div>
+        <div className="form-group col-md-4">
+          <label htmlFor="inputSentiment">Sentiment</label>
+          <select id="inputSentiment" className="form-control" defaultValue="neutral">
+            <option>positive</option>
+            <option>neutral</option>
+            <option>negative</option>
+          </select>
+        </div>
+        <div className="form-group col-md-2">
+          <label htmlFor="inputScore">Score</label>
+          <select id="inputScore" className="form-control" defaultValue="5">
+          {
+            [...Array(10).keys()].map((i) => { return (<option key={i}>{i+1}</option>) })
+          }
+          </select>
+        </div>
+        <button type="submit" className="btn btn-primary">Submit Review</button>
+      </div>
+    </form>
   );
 }
 
@@ -75,12 +101,12 @@ export default class Details extends Component {
         <div className="reviews">
           { 
             reviews.map((review) => {
-              return (<Block info={review} key={review.ID}/>)
+              return (<Card info={review} key={review.ID}/>)
             })
           }
         </div>
-        <div className="new=-entry">
-          <h4>3rd Area</h4>
+        <div className="new-entry">
+          <NewEntry />
         </div>
       </div>
     );

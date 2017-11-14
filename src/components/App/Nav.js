@@ -4,8 +4,6 @@ import {NavLink} from 'react-router-dom';
 export function Nav (props) {
     let authorized = props.userId === 'unauthorized' ? false : true;
 
-    console.log(props);
-
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">

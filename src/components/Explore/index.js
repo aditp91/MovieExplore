@@ -21,13 +21,15 @@ export default class Explore extends Component {
     // check if app component has an authorized user
     if (this.props.userId === 'unauthorized') {
       this.props.history.push('/login');
-    } else {
-      axios.get(apiConstants.HOST + '/api/getMovies')
-        .then(res => {
-          const movies = res.data;
-          this.setState({ movies });
-        });
-    }
+    } else { this.updateMovies(); }
+  }
+
+  updateMovies() {
+    axios.get(apiConstants.HOST + '/api/getMovies')
+    .then(res => {
+      const movies = res.data;
+      this.setState({ movies });
+    });
   }
 
   thumbnailSelectHandler(movieId) {
@@ -38,6 +40,14 @@ export default class Explore extends Component {
       });
   }
 
+  loadHandler() {
+    axios.get(apiConstants.HOST + '/api/importLatest/')
+      .then(res => {
+        console.log(res.data);
+        this.updateMovies();
+      });
+  }
+
   render() {
     return (
       <div className='explore'>
@@ -45,7 +55,9 @@ export default class Explore extends Component {
           <img src={logo} className="explore-logo" alt="logo" />
           <h2>Explorer</h2>
         </div> */}
-        <Movies data={this.state.movies} thumbnailSelectHandler={this.thumbnailSelectHandler.bind(this)}/>
+        <Movies data={this.state.movies}
+          thumbnailSelectHandler={this.thumbnailSelectHandler.bind(this)}
+          loadHandler={this.loadHandler.bind(this)} />
         <Details data={this.state.reviews}/>
       </div>
     );

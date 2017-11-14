@@ -33,11 +33,19 @@
 
 /* EXPLORE-MOVIES */
 .movies-wall {
-  width: 142vw;
-  height: 82vh;
+  width: 54vw;
+  height: 77vh;
   overflow: scroll;
-  margin: 15px;
+  margin: 15px 15px 25px 15px;
 }
+.movies-wall-button {
+  display: block;
+  margin: auto;
+
+  width: 40%;
+  padding: 10px;
+}
+
 
 
 /* EXPLORE-DETAILS */
@@ -50,11 +58,10 @@
 }
 
 .details-panel .analysis {
-  height: 85px;
+  height: 75px;
   padding: 15px;
   text-align: center;
 }
-
 
 .details-panel .reviews {
   padding: 0 15px 0 15px;
@@ -72,9 +79,14 @@
   margin: 0;
 }
 
-
-
 .details-panel .new-entry {
   clear: both;
-	padding: 0 15px;
+  margin: 15px 0 0 0;
+}
+.details-panel .new-entry label {
+  font-weight: bold;
+}
+.details-panel .new-entry button {
+  margin: auto;
+  width: 200px;
 }

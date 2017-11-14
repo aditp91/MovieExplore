@@ -12,8 +12,9 @@ export default class App extends Component {
   constructor (props) {
     super();
     this.state = {
-        currentUserId: "unauthorized",
-        currentUsername: ""
+      // currentUserId: "unauthorized",
+      currentUserId: 123,
+      currentUsername: ""
     };
 
     this.changeCurrentUser.bind(this);
@@ -21,8 +22,6 @@ export default class App extends Component {
 
   changeCurrentUser(currentUserId, currentUsername) {
     this.setState({ currentUserId, currentUsername });
-
-    console.log(this.state.currentUsername);
   }
 
   render(props) {

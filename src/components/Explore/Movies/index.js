@@ -36,24 +36,24 @@ export default class Movies extends Component {
     this.props.thumbnailSelectHandler(movieId);
   }
 
+  onClickLoad() {
+    this.props.loadHandler();
+  }
+
   render () {
     const {wallObjects} = this.state;
 
     return (
-      <div className="movies-wall area">
-        {/* <div>
-          { 
-            movies.map((movie) => {
-              return (<Block info={movie} key={movie.id}/>)
-            })
-          }
-        </div> */}
-        <div>
+      <div>
+        <div className="movies-wall area">
           <Gallery images={wallObjects}
             onClickThumbnail={this.onClickThumbnail.bind(this)}
             margin={12} rowHeight={310}
             enableLightbox={false}
             enableImageSelection={true} />
+        </div>
+        <div>
+          <button type="submit" className="btn btn-primary movies-wall-button" onClick={this.onClickLoad.bind(this)}>Load Latest Movies</button>
         </div>
       </div>
     );

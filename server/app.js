@@ -68,8 +68,8 @@ router.get('/getReviewsByMovie/:id', (req, res) => {
 });
 
 router.get('/importLatest', (req, res) => {
-  actions.importData(pool);
-  res.json("sent request for import");
+  actions.importLatest(pool);
+  res.json("received request for import");
 });
 
 app.use('/api', router);

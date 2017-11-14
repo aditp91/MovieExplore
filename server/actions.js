@@ -65,7 +65,7 @@ const insertMovie = function (pool, movie) {
 
 
 // Import More Data using themoviedb api
-const importData = function (pool) {
+const importLatest = function (pool) {
   const apiKey = '?api_key=724402db4d243c4c28e6865752596f4d';
   const imageApi = 'https://image.tmdb.org/t/p/w500';
 
@@ -99,9 +99,9 @@ const importData = function (pool) {
             movie.production = data.production_companies[0];
             movie.length = data.runtime;
             movie.imageUrl = imageApi + movie.poster_path;
-
-            // console.log(JSON.stringify(movie.production.name, null, 2));
+            
             if (movie.production) {
+              console.log(JSON.stringify(movie.production.name, null, 2));
               insertMovie(pool, movie);
             }
           });
@@ -122,6 +122,6 @@ actions.authenticate = authenticate;
 actions.getMovies = getMovies;
 actions.getUsers = getUsers;
 actions.getReviewsByMovie = getReviewsByMovie;
-actions.importData = importData;
+actions.importLatest = importLatest;
 
 module.exports = actions;
