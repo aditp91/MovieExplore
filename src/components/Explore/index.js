@@ -11,7 +11,8 @@ export default class Explore extends Component {
     super();
     this.state = {
         movies: [],
-        reviews: []
+        reviews: [],
+        selectedMovieId: -1
     };
 
     this.thumbnailSelectHandler.bind(this);
@@ -21,10 +22,10 @@ export default class Explore extends Component {
     // check if app component has an authorized user
     if (this.props.role === 'unauthorized') {
       this.props.history.push('/login');
-    } else { this.updateMovies(); }
+    } else { this.getMovies(); }
   }
 
-  updateMovies() {
+  getMovies() {
     axios.get(apiConstants.HOST + '/api/getMovies')
     .then(res => {
       const movies = res.data;
@@ -36,7 +37,7 @@ export default class Explore extends Component {
     axios.get(apiConstants.HOST + '/api/getReviewsByMovie/' + movieId)
       .then(res => {
         const reviews = res.data;
-        this.setState({ reviews });
+        this.setState({ reviews, selectedMovieId: movieId});
       });
   }
 
@@ -44,7 +45,17 @@ export default class Explore extends Component {
     axios.get(apiConstants.HOST + '/api/importLatest/')
       .then(res => {
         console.log(res.data);
-        this.updateMovies();
+        this.getMovies();
+      });
+  }
+
+  submitReviewHandler(content, score, sentiment) {
+    const userId = this.props.userId;
+    const movieId = this.state.selectedMovieId
+
+    axios.get(apiConstants.HOST + '/api/submitReview/'+userId+'/'+movieId+'/'+content+'/'+score+'/'+sentiment)
+      .then(res => {
+        console.log(res.data);
       });
   }
 
@@ -59,7 +70,9 @@ export default class Explore extends Component {
           thumbnailSelectHandler={this.thumbnailSelectHandler.bind(this)}
           loadHandler={this.loadHandler.bind(this)} 
           role={this.props.role} />
-        <Details data={this.state.reviews} role={this.props.role}/>
+        <Details data={this.state.reviews}
+          role={this.props.role}
+          submitReviewHandler={this.submitReviewHandler.bind(this)} />
       </div>
     );
   }

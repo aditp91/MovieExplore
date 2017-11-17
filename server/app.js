@@ -55,8 +55,8 @@ router.get('/authenticate/:username/:password', (req, res) => {
   actions.authenticate(pool,res,req.params.username, req.params.password);
 });
 
-router.get('/getViewers', (req, res) => {
-  actions.getViewers(pool,res);
+router.get('/getUsers', (req, res) => {
+  actions.getUsers(pool,res);
 });
 
 router.get('/getMovies', (req, res) => {
@@ -65,6 +65,10 @@ router.get('/getMovies', (req, res) => {
 
 router.get('/getReviewsByMovie/:id', (req, res) => {
   actions.getReviewsByMovie(pool,res,req.params.id);
+});
+
+router.get('/submitReview/:userid/:movieid/:content/:score/:sentiment', (req, res) => {
+  actions.insertReview(pool,req.params.userid, req.params.movieid, req.params.content, req.params.score, req.params.sentiment);
 });
 
 router.get('/importLatest', (req, res) => {

@@ -31,7 +31,6 @@ export default class Login extends Component {
       const user = res.data[0] ? res.data[0] : null;
 
       if (user) {
-        console.log(user);
         this.setState({ username, password, role: user.Role });
         this.props.changeCurrentUser(user.ID, user.Username, user.Role);
         this.props.history.push('/');

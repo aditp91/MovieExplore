@@ -16,17 +16,19 @@ const Card = ({info}) => {
   );
 }
 
-const NewEntry = ({role}) => {
+const NewEntry = ({role, updateUserInput, submitReview}) => {
   return (
-    <form>
+    <form onSubmit={submitReview}>
       <div className="form-row">
         <div className="form-group col-md-6">
           <label htmlFor="inputContent">Content</label>
-          <input type="text" className="form-control" id="inputContent"/>
+          <input id="inputContent" type="text" className="form-control" name="reviewContent"
+            onChange={(e) => updateUserInput(e)} />
         </div>
         <div className="form-group col-md-4">
           <label htmlFor="inputSentiment">Sentiment</label>
-          <select id="inputSentiment" className="form-control" defaultValue="neutral">
+          <select id="inputSentiment" className="form-control" defaultValue="neutral" name="reviewSentiment"
+            onChange={(e) => updateUserInput(e)}>
             <option>positive</option>
             <option>neutral</option>
             <option>negative</option>
@@ -34,13 +36,17 @@ const NewEntry = ({role}) => {
         </div>
         <div className="form-group col-md-2">
           <label htmlFor="inputScore">Score</label>
-          <select id="inputScore" className="form-control" defaultValue="5">
-          {
-            [...Array(10).keys()].map((i) => { return (<option key={i}>{i+1}</option>) })
-          }
+          <select id="inputScore" className="form-control" defaultValue="5" name="reviewScore"
+            onChange={(e) => updateUserInput(e)} >
+            {
+              [...Array(10).keys()].map((i) => { return (<option key={i}>{i+1}</option>) })
+            }
           </select>
         </div>
-        <button type="submit" className="btn btn-primary" disabled={role !== 'user'}>Submit Review</button>
+        <button type="submit" 
+          className="btn btn-primary" 
+          disabled={role !== 'user'}>
+            Submit Review</button>
       </div>
     </form>
   );
@@ -52,7 +58,10 @@ export default class Details extends Component {
     this.state = {
       avgScore: 0,
       avgSentiment: "",
-      reviews: []
+      reviews: [],
+      reviewContent: "",
+      reviewScore: 5,
+      reviewSentiment: "neutral"
     };
   };
 
@@ -89,6 +98,17 @@ export default class Details extends Component {
     });
   }
 
+  handleUserInput (e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  handleSubmitReview (e) {
+    e.preventDefault();
+    const { reviewContent, reviewScore, reviewSentiment } = this.state;
+    this.props.submitReviewHandler(reviewContent, reviewScore, reviewSentiment);
+  }
 
   render () {
     const {reviews, avgScore, avgSentiment} = this.state;
@@ -106,7 +126,9 @@ export default class Details extends Component {
           }
         </div>
         <div className="new-entry">
-          <NewEntry role={this.props.role}/>
+          <NewEntry role={this.props.role}
+            updateUserInput={this.handleUserInput.bind(this)}
+            submitReview={this.handleSubmitReview.bind(this)} />
         </div>
       </div>
     );

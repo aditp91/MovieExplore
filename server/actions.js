@@ -20,13 +20,13 @@ const authenticate = function (pool, res, username, password) {
   resolveQuery(pool, res, queryString);
 }
 
-const getMovies = function (pool, res) {
-  const queryString = 'SELECT * FROM movies';
+const getUsers = function (pool, res) {
+  const queryString = 'SELECT * FROM users';
   resolveQuery(pool, res, queryString);
 }
 
-const getUsers = function (pool, res) {
-  const queryString = 'SELECT * FROM users';
+const getMovies = function (pool, res) {
+  const queryString = 'SELECT * FROM movies';
   resolveQuery(pool, res, queryString);
 }
 
@@ -37,9 +37,24 @@ const getReviewsByMovie = function (pool, res, movieId) {
   resolveQuery(pool, res, queryString);
 }
 
-
-
 // Database population
+const insertReview = function (pool, userid, movieid, content, score, sentiment) {
+  let reviewString = 'INSERT INTO Reviews (Description, Score, Sentiment) VALUES ?'
+  let reviewValues = [[content, score, sentiment]];
+  pool.query(reviewString, [reviewValues], function(err, result) {
+    if (err) {
+      console.log('Error while performing Insert:', err);
+    } else {
+      reviewString = 'INSERT INTO user_review_entries (ReviewID, UserID, MovieID) VALUES ?';
+      let reviewValues = [[result.insertId, userid, movieid]];
+      pool.query(reviewString, [reviewValues], function(err, result) {
+        if (err) { console.log('Error while performing Insert:', err); }
+      });
+    }
+  });
+
+}
+
 const insertMovie = function (pool, movie) {
   // insert production company first
   const production_website = 'www.' + movie.production.name + '.com';
@@ -119,9 +134,10 @@ const importLatest = function (pool) {
 }
 
 actions.authenticate = authenticate;
-actions.getMovies = getMovies;
 actions.getUsers = getUsers;
+actions.getMovies = getMovies;
 actions.getReviewsByMovie = getReviewsByMovie;
+actions.insertReview = insertReview;
 actions.importLatest = importLatest;
 
 module.exports = actions;
