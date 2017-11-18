@@ -50,7 +50,7 @@ export default class Movies extends Component {
             onClickThumbnail={this.onClickThumbnail.bind(this)}
             margin={12} rowHeight={310}
             enableLightbox={false}
-            enableImageSelection={true} />
+            enableImageSelection={false} />
         </div>
         <div>
           <button type="submit" 

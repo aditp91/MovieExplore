@@ -25,7 +25,7 @@ export function Nav (props) {
                 </div>
                 
                 <div className="alert alert-primary welcome" role="alert" style={authorized ? {} : { display: 'none' }}>
-                    Welcome {props.username} !
+                    Welcome {props.username}!
                 </div>
                 <NavLink activeClassName="active" to="/login">
                     <button className="btn btn-primary" style={authorized ? {} : { display: 'none' }}>Logout</button>

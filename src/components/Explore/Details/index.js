@@ -23,7 +23,7 @@ const NewEntry = ({role, updateUserInput, submitReview}) => {
         <div className="form-group col-md-6">
           <label htmlFor="inputContent">Content</label>
           <input id="inputContent" type="text" className="form-control" name="reviewContent"
-            onChange={(e) => updateUserInput(e)} />
+            onChange={(e) => updateUserInput(e)}/>
         </div>
         <div className="form-group col-md-4">
           <label htmlFor="inputSentiment">Sentiment</label>
@@ -37,7 +37,7 @@ const NewEntry = ({role, updateUserInput, submitReview}) => {
         <div className="form-group col-md-2">
           <label htmlFor="inputScore">Score</label>
           <select id="inputScore" className="form-control" defaultValue="5" name="reviewScore"
-            onChange={(e) => updateUserInput(e)} >
+            onChange={(e) => updateUserInput(e)}>
             {
               [...Array(10).keys()].map((i) => { return (<option key={i}>{i+1}</option>) })
             }
@@ -106,6 +106,9 @@ export default class Details extends Component {
 
   handleSubmitReview (e) {
     e.preventDefault();
+
+    console.log("trying");
+    
     const { reviewContent, reviewScore, reviewSentiment } = this.state;
     this.props.submitReviewHandler(reviewContent, reviewScore, reviewSentiment);
   }
