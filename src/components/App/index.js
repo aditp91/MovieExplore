@@ -32,10 +32,10 @@ export default class App extends Component {
         <div className="container">
             <Nav userId={currentUserId} username={currentUsername} role={currentRole}/>
             <Switch>
-                <Route exact path="/" component={(props)=><Explore userId={currentUserId} role={currentRole} {...props} />} />
-                <Route path="/my-reviews" component={MyReviews} userId={currentUserId}/>
-                <Route path="/login" component={(props)=><Login changeCurrentUser={this.changeCurrentUser.bind(this)} {...props} />} />
-                <Route component={NotFound} />
+              <Route exact path="/" component={(props)=><Explore userId={currentUserId} role={currentRole} {...props} />} />
+              <Route path="/my-reviews" component={(props)=><MyReviews userId={currentUserId} role={currentRole} {...props} />} />
+              <Route path="/login" component={(props)=><Login changeCurrentUser={this.changeCurrentUser.bind(this)} {...props} />} />
+              <Route component={NotFound} />
             </Switch>
         </div>
       </BrowserRouter>

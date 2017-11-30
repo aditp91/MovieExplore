@@ -1,0 +1,40 @@
+.area {
+  background-color: #e4e5ec;
+
+  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.281);
+}
+
+/* MYREVIEWS */
+.myreviews {
+  display: flex;
+}
+
+/* MYREVIEWS-DETAILS */
+.myreviews-panel {
+  width: 100%;
+  position: relative;
+  margin: 15px;
+  padding: 20px;
+  /* transform: translateY(10%); */
+}
+
+.myreviews-panel .analysis {
+  height: 75px;
+  padding: 15px;
+  text-align: center;
+}
+
+.myreviews-panel .reviews {
+  padding: 0 15px 0 15px;
+  height: 54vh;
+  overflow: scroll;
+  background-color: rgb(71, 75, 85);
+}
+.myreviews-panel .reviews .card-mx {
+  margin: 20px 10px 20px 10px;
+  box-shadow: 0px 0px 10px 4px rgba(0, 0, 0, 0.281);
+}
+.myreviews-panel .reviews img, p {
+  padding: 1em;
+  margin: 0;
+}

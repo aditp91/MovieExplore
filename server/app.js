@@ -67,6 +67,10 @@ router.get('/getReviewsByMovie/:id', (req, res) => {
   actions.getReviewsByMovie(pool,res,req.params.id);
 });
 
+router.get('/getReviewsByUserId/:id', (req, res) => {
+  actions.getReviewsByUserId(pool,res,req.params.id);
+});
+
 router.get('/submitReview/:userid/:movieid/:content/:score/:sentiment', (req, res) => {
   actions.insertReview(pool,req.params.userid, req.params.movieid, req.params.content, req.params.score, req.params.sentiment);
 });

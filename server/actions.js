@@ -37,6 +37,13 @@ const getReviewsByMovie = function (pool, res, movieId) {
   resolveQuery(pool, res, queryString);
 }
 
+const getReviewsByUserId = function (pool, res, userId) {
+  const queryString = 'SELECT r.*, u.Username ' + 
+                        'FROM reviews r INNER JOIN user_review_entries ure ON r.ID=ure.ReviewID ' +
+                        'INNER JOIN users u ON u.ID = ure.UserID WHERE ure.UserID=' + userId;
+  resolveQuery(pool, res, queryString);
+}
+
 // Database population
 const insertReview = function (pool, userid, movieid, content, score, sentiment) {
   let reviewString = 'INSERT INTO Reviews (Description, Score, Sentiment) VALUES ?'
@@ -52,7 +59,6 @@ const insertReview = function (pool, userid, movieid, content, score, sentiment)
       });
     }
   });
-
 }
 
 const insertMovie = function (pool, movie) {
@@ -137,6 +143,7 @@ actions.authenticate = authenticate;
 actions.getUsers = getUsers;
 actions.getMovies = getMovies;
 actions.getReviewsByMovie = getReviewsByMovie;
+actions.getReviewsByUserId = getReviewsByUserId;
 actions.insertReview = insertReview;
 actions.importLatest = importLatest;
 
