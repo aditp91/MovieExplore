@@ -21,23 +21,20 @@ const NewEntry = ({role, updateUserInput, submitReview}) => {
     <form onSubmit={submitReview}>
       <div className="form-row">
         <div className="form-group col-md-6">
-          <label htmlFor="inputContent">Content</label>
-          <input id="inputContent" type="text" className="form-control" name="reviewContent"
-            onChange={(e) => updateUserInput(e)}/>
+          <label htmlFor="reviewContent">Content</label>
+          <input required id="reviewContent" type="text" className="form-control" onChange={(e) => updateUserInput(e)}/>
         </div>
         <div className="form-group col-md-4">
-          <label htmlFor="inputSentiment">Sentiment</label>
-          <select id="inputSentiment" className="form-control" defaultValue="neutral" name="reviewSentiment"
-            onChange={(e) => updateUserInput(e)}>
+          <label htmlFor="reviewSentiment">Sentiment</label>
+          <select id="reviewSentiment" className="form-control" defaultValue="neutral" onChange={(e) => updateUserInput(e)}>
             <option>positive</option>
             <option>neutral</option>
             <option>negative</option>
           </select>
         </div>
         <div className="form-group col-md-2">
-          <label htmlFor="inputScore">Score</label>
-          <select id="inputScore" className="form-control" defaultValue="5" name="reviewScore"
-            onChange={(e) => updateUserInput(e)}>
+          <label htmlFor="reviewScore">Score</label>
+          <select id="reviewScore" className="form-control" defaultValue="5" onChange={(e) => updateUserInput(e)}>
             {
               [...Array(10).keys()].map((i) => { return (<option key={i}>{i+1}</option>) })
             }
@@ -100,15 +97,13 @@ export default class Details extends Component {
 
   handleUserInput (e) {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.id]: e.target.value
     });
   }
 
   handleSubmitReview (e) {
     e.preventDefault();
 
-    console.log("trying");
-    
     const { reviewContent, reviewScore, reviewSentiment } = this.state;
     this.props.submitReviewHandler(reviewContent, reviewScore, reviewSentiment);
   }
