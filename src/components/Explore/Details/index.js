@@ -1,4 +1,5 @@
 import React, {Component } from 'react';
+import moment from 'moment';
 
 const Card = ({info}) => {
   return (
@@ -6,7 +7,7 @@ const Card = ({info}) => {
       <div className="card card-mx">
         <div className="card-body">
           <h4 className="card-title"> {info.Username} </h4>
-          <h6 className="card-subtitle mb-2 text-muted"> {info.EntryDateTime} </h6>
+          <h6 className="card-subtitle mb-2 text-muted"> {moment(info.EntryDateTime).format('MMMM Do YYYY, h:mm:ss a')} </h6>
           <p className="card-text"> {info.Description} </p>
           <a className="card-text text-muted">score: {info.Score}   </a>
           <a className="card-text text-muted">sentiment: {info.Sentiment}</a>

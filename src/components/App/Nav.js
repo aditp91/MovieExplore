@@ -16,7 +16,7 @@ export function Nav (props) {
                                 Explore
                             </NavLink>
                         </li>
-                        <li className="nav-item nav-mx">
+                        <li className="nav-item nav-mx" style={props.role !== 'admin' ? {} : { display: 'none' }}>
                             <NavLink activeClassName="active" to="/my-reviews">
                                 MyReviews
                             </NavLink>
