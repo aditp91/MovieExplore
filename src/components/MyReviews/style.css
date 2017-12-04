@@ -11,6 +11,7 @@
 
 /* MYREVIEWS-DETAILS */
 .myreviews-panel {
+  height: 80vh;
   width: 100%;
   position: relative;
   margin: 15px;
@@ -26,7 +27,7 @@
 
 .myreviews-panel .reviews {
   padding: 0 15px 0 15px;
-  height: 54vh;
+  height: 75vh;
   overflow: scroll;
   background-color: rgb(71, 75, 85);
 }
@@ -45,7 +46,30 @@
   float:right;
   height: 100%;
 }
-.myreviews-panel .reviews img, p {
+.myreviews-panel .reviews p {
   padding: 1em;
   margin: 0;
+}
+
+.myreviews-panel .analysis {
+  min-width: 600px;
+  float: left;
+
+  margin-top: 12vh;
+}
+.myreviews-panel .analysis .poster {
+  display: block;
+}
+.myreviews-panel .analysis .poster img {
+  float: left;
+
+  padding: 1em;
+  width: 230px;
+  height: 330px;
+}
+.myreviews-panel .analysis .info {
+  margin-top: 60px;
+}
+.myreviews-panel .analysis h4 {
+  line-height: 45px; 
 }

@@ -38,7 +38,7 @@ const getReviewsByMovie = function (pool, res, movieId) {
 }
 
 const getReviewsByUserId = function (pool, res, userId) {
-  const queryString = 'SELECT r.*, u.Username, m.ImageUrl, p.Name as ProductionCompany ' + 
+  const queryString = 'SELECT r.*, u.Username, m.Title, m.ImageUrl, p.Name as ProductionCompany ' + 
                         'FROM reviews r INNER JOIN user_review_entries ure ON r.ID=ure.ReviewID ' +
                         'INNER JOIN users u ON u.ID = ure.UserID ' + 
                         'INNER JOIN movies m ON m.ID = ure.MovieID INNER JOIN productions p ON p.ID = m.ProductionID ' +

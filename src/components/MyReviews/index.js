@@ -5,7 +5,7 @@ import moment from 'moment';
 import apiConstants from '../../shared/api.constants.js';
 import './style.css';
 
-const Card = ({info, selectCard}) => {
+const Card = ({info, selectCard, deleteCard}) => {
   return (
     <div>
       <div className="card card-mx">
@@ -18,7 +18,10 @@ const Card = ({info, selectCard}) => {
             <a className="card-text text-muted">sentiment: {info.Sentiment}</a>
           </div>
           <div className="show">
-            <button type="submit" className="btn btn-primary" onClick={selectCard}>Show Details</button>
+            <button type="submit" className="btn btn-primary" 
+              onClick={() => selectCard(info)}>Show Details</button>
+            <button type="submit" className="btn btn-danger" 
+              onClick={() => deleteCard(info)}>Delete Review</button>
           </div>
         </div>
       </div>
@@ -31,8 +34,7 @@ export default class MyReviews extends Component {
     super();
     this.state = {
       reviews: [],
-      associatedMoviePoster: '',
-      associatedProduction: ''
+      selectedReview: ''
     };
 
     this.selectReviewHandler = this.selectReviewHandler.bind(this);
@@ -48,33 +50,43 @@ export default class MyReviews extends Component {
     axios.get(apiConstants.HOST + '/api/getReviewsByUserId/'+ this.props.userId)
     .then(res => {
       const reviews = res.data;
-      console.log(reviews);
-
       this.setState({ reviews });
     });
   }
 
-  selectReviewHandler() {
-    //TODO
-    console.log("selected review");
+  selectReviewHandler(info) {
+    this.setState({ selectedReview: info });
   }
 
-  deleteReviewHandler() {
-    // TODO
+  deleteReviewHandler(info) {
+    const reviewID = info.ID;
+    const filtered = this.state.reviews.filter(e => e.ID !== info.ID);
+
+    this.setState({ reviews: filtered });
+
   }
 
   render() {
-    const {reviews} = this.state;
+    const {reviews, selectedReview} = this.state;
 
     return (
       <div className="myreviews-panel area">
         <div className="analysis">
-          <h4>Movie Poster: { }, Movie Production Company: { }</h4>
+          <div className="poster">
+            <img src={selectedReview.ImageUrl} alt={selectedReview.ImageUrl} /> 
+          </div>
+          <div className="info">
+            <h4><strong>Movie Name:</strong> {selectedReview.Title}</h4>
+            <h4><strong>Movie Production Company:</strong> {selectedReview.ProductionCompany}</h4>
+          </div>
         </div>
         <div className="reviews">
           { 
             reviews.map((review) => {
-              return (<Card info={review} selectCard={this.selectReviewHandler.bind(this)} key={review.ID}/>)
+              return (<Card info={review} 
+                key={review.ID}
+                selectCard={this.selectReviewHandler.bind(this)} 
+                deleteCard={this.deleteReviewHandler.bind(this)} />)
             })
           }
         </div>
