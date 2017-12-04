@@ -75,6 +75,10 @@ router.get('/submitReview/:userid/:movieid/:content/:score/:sentiment', (req, re
   actions.insertReview(pool,req.params.userid, req.params.movieid, req.params.content, req.params.score, req.params.sentiment);
 });
 
+router.get('/deleteReview/:reviewid', (req, res) => {
+  actions.deleteReview(pool,req.params.reviewid);
+});
+
 router.get('/importLatest', (req, res) => {
   actions.importLatest(pool);
   res.json("received request for import");

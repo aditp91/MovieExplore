@@ -63,6 +63,20 @@ const insertReview = function (pool, userid, movieid, content, score, sentiment)
   });
 }
 
+const deleteReview = function(pool, reviewid) {
+  let reviewString = 'DELETE FROM user_review_entries WHERE ReviewID=' + reviewid;
+  pool.query(reviewString, function(err, result) {
+    if (err) {
+      console.log('Error while performing Delete:', err);
+    } else {
+      reviewString = 'DELETE FROM reviews WHERE ID=' + reviewid;
+      pool.query(reviewString, function(err, result) {
+        if (err) { console.log('Error while performing Delete:', err); }
+      });
+    }
+  });
+}
+
 const insertMovie = function (pool, movie) {
   // insert production company first
   const production_website = 'www.' + movie.production.name + '.com';
@@ -147,6 +161,7 @@ actions.getMovies = getMovies;
 actions.getReviewsByMovie = getReviewsByMovie;
 actions.getReviewsByUserId = getReviewsByUserId;
 actions.insertReview = insertReview;
+actions.deleteReview = deleteReview;
 actions.importLatest = importLatest;
 
 module.exports = actions;
