@@ -71,12 +71,12 @@ router.get('/getReviewsByUserId/:id', (req, res) => {
   actions.getReviewsByUserId(pool,res,req.params.id);
 });
 
-router.get('/submitReview/:userid/:movieid/:content/:score/:sentiment', (req, res) => {
-  actions.insertReview(pool,req.params.userid, req.params.movieid, req.params.content, req.params.score, req.params.sentiment);
+router.post('/submitReview/:userid/:movieid/:content/:score/:sentiment', (req, res) => {
+  actions.insertReview(pool,res,req.params.userid, req.params.movieid, req.params.content, req.params.score, req.params.sentiment);
 });
 
-router.get('/deleteReview/:reviewid', (req, res) => {
-  actions.deleteReview(pool,req.params.reviewid);
+router.delete('/deleteReview/:reviewid', (req, res) => {
+  actions.deleteReview(pool,res,req.params.reviewid);
 });
 
 router.get('/importLatest', (req, res) => {

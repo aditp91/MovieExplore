@@ -47,7 +47,7 @@ const getReviewsByUserId = function (pool, res, userId) {
 }
 
 // Database population
-const insertReview = function (pool, userid, movieid, content, score, sentiment) {
+const insertReview = function (pool, res, userid, movieid, content, score, sentiment) {
   let reviewString = 'INSERT INTO Reviews (Description, Score, Sentiment) VALUES ?'
   let reviewValues = [[content, score, sentiment]];
   pool.query(reviewString, [reviewValues], function(err, result) {
@@ -57,13 +57,16 @@ const insertReview = function (pool, userid, movieid, content, score, sentiment)
       reviewString = 'INSERT INTO user_review_entries (ReviewID, UserID, MovieID) VALUES ?';
       let reviewValues = [[result.insertId, userid, movieid]];
       pool.query(reviewString, [reviewValues], function(err, result) {
-        if (err) { console.log('Error while performing Insert:', err); }
+        if (err)
+        console.log('Error while performing Insert:', err);
+      else
+        res.json(result); 
       });
     }
   });
 }
 
-const deleteReview = function(pool, reviewid) {
+const deleteReview = function(pool, res, reviewid) {
   let reviewString = 'DELETE FROM user_review_entries WHERE ReviewID=' + reviewid;
   pool.query(reviewString, function(err, result) {
     if (err) {
@@ -71,7 +74,10 @@ const deleteReview = function(pool, reviewid) {
     } else {
       reviewString = 'DELETE FROM reviews WHERE ID=' + reviewid;
       pool.query(reviewString, function(err, result) {
-        if (err) { console.log('Error while performing Delete:', err); }
+        if (err)
+          console.log('Error while performing Delete:', err);
+        else
+          res.json(result); 
       });
     }
   });

@@ -18,10 +18,9 @@ const Card = ({info, selectCard, deleteCard}) => {
             <a className="card-text text-muted">sentiment: {info.Sentiment}</a>
           </div>
           <div className="show">
-            <button type="submit" className="btn btn-danger"
-              style={{float:'right', margin:'0 10px 0 10px'}}
+            <button type="button" className="btn btn-danger" style={{float:'right', margin:'0 10px 0 10px'}}
               onClick={() => deleteCard(info)}>Delete Review</button>
-            <button type="submit" className="btn btn-primary" 
+            <button type="button" className="btn btn-primary" 
               onClick={() => selectCard(info)}>Show Details</button>
           </div>
         </div>
@@ -37,8 +36,6 @@ export default class MyReviews extends Component {
       reviews: [],
       selectedReview: ''
     };
-
-    this.selectReviewHandler = this.selectReviewHandler.bind(this);
   };
 
   componentDidMount () {
@@ -60,11 +57,10 @@ export default class MyReviews extends Component {
   }
 
   deleteReviewHandler(info) {
-    const filtered = this.state.reviews.filter(e => e.ID !== info.ID);
+    const filtered = this.state.reviews.filter(r => r.ID !== info.ID);
 
-    axios.get(apiConstants.HOST + '/api/deleteReview/'+ info.ID)
+    axios.delete(apiConstants.HOST + '/api/deleteReview/'+ info.ID)
     .then(res => {
-      console.log(res);
       this.setState({ reviews: filtered });
     });
   }

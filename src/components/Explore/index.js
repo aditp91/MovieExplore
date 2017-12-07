@@ -44,7 +44,7 @@ export default class Explore extends Component {
   loadHandler() {
     axios.get(apiConstants.HOST + '/api/importLatest/')
       .then(res => {
-        console.log(res.data);
+        console.log(res);
         this.getMovies();
       });
   }
@@ -53,9 +53,9 @@ export default class Explore extends Component {
     const userId = this.props.userId;
     const movieId = this.state.selectedMovieId
 
-    axios.get(apiConstants.HOST + '/api/submitReview/'+userId+'/'+movieId+'/'+content+'/'+score+'/'+sentiment)
+    axios.post(apiConstants.HOST + '/api/submitReview/'+userId+'/'+movieId+'/'+content+'/'+score+'/'+sentiment)
       .then(res => {
-        console.log(res.data);
+        this.thumbnailSelectHandler(movieId);
       });
   }
 

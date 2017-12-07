@@ -48,7 +48,7 @@ export default class Movies extends Component {
         <div className="movies-wall area">
           <Gallery images={wallObjects}
             onClickThumbnail={this.onClickThumbnail.bind(this)}
-            margin={12} rowHeight={310}
+            margin={12} rowHeight={330}
             enableLightbox={false}
             enableImageSelection={false} />
         </div>
