@@ -52,7 +52,7 @@
 }
 
 .myreviews-panel .analysis {
-  min-width: 600px;
+  width: 600px;
   float: left;
 
   margin-top: 12vh;
