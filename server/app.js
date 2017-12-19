@@ -79,6 +79,10 @@ router.delete('/deleteReview/:reviewid', (req, res) => {
   actions.deleteReview(pool,res,req.params.reviewid);
 });
 
+router.post('/updateReview/:reviewid/:content', (req, res) => {
+  actions.updateReview(pool,res,req.params.reviewid,req.params.content);
+});
+
 router.get('/importLatest', (req, res) => {
   actions.importLatest(pool);
   res.json("received request for import");

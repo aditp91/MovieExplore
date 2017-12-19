@@ -1,6 +1,7 @@
 import React, {Component } from 'react';
 import axios from 'axios';
 import moment from 'moment';
+import ContentEditable from 'react-contenteditable';
 
 import apiConstants from '../../shared/api.constants.js';
 import './style.css';
@@ -13,7 +14,11 @@ const Card = ({info, selectCard, deleteCard}) => {
           <div className="details">
             <h4 className="card-title"> {info.Username} </h4>
             <h6 className="card-subtitle mb-2 text-muted"> {moment(info.EntryDateTime).format('MMMM Do YYYY, h:mm:ss a')} </h6>
-            <p className="card-text"> {info.Description} </p>
+            <p className="card-text">
+              <ContentEditable html={info.Description} disabled={false}
+                onChange={(e) => axios.post(apiConstants.HOST + '/api/updateReview/'+info.ID+'/'+e.target.value)}
+              />
+            </p>
             <a className="card-text text-muted">score: {info.Score}   </a>
             <a className="card-text text-muted">sentiment: {info.Sentiment}</a>
           </div>

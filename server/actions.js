@@ -83,6 +83,18 @@ const deleteReview = function(pool, res, reviewid) {
   });
 }
 
+const updateReview = function (pool, res, reviewid, content) {
+  let reviewString = 'UPDATE Reviews SET Description=\'' + content + '\' WHERE ID=\'' + reviewid + '\'';
+  let reviewValues = [[content]];
+  pool.query(reviewString, [reviewValues], function(err, result) {
+    if (err) {
+      console.log('Error while performing Update:', err);
+    } else {
+      res.json(result);
+    }
+  });
+}
+
 const insertMovie = function (pool, movie) {
   // insert production company first
   const production_website = 'www.' + movie.production.name + '.com';
@@ -168,6 +180,7 @@ actions.getReviewsByMovie = getReviewsByMovie;
 actions.getReviewsByUserId = getReviewsByUserId;
 actions.insertReview = insertReview;
 actions.deleteReview = deleteReview;
+actions.updateReview = updateReview;
 actions.importLatest = importLatest;
 
 module.exports = actions;
